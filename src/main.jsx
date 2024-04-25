@@ -1,9 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
 import './index.css';
 import IntegratedMenuDrawer from './components/IntegratedMenuDrawer.jsx';
-import { Outlet, createBrowserRouter } from 'react-router-dom';
+import { Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import User from './pages/User.jsx';
+import Stats from './pages/Stats.jsx';
+import Subscription from './pages/Subscription.jsx';
+import NotFound from './pages/NotFound.jsx';
+import SignIn from './pages/SignIn.jsx';
+import App from './App.jsx';
 
 const Layout = () => {
   return (
@@ -16,31 +21,38 @@ const Layout = () => {
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/', // This route handles all paths
     element: <Layout />,
-    childeren: [
+    children: [
       {
+        // Explicit routes for specific pages
         path: '/',
         element: <App />
       },
       {
-        path: '/',
-        element: <App />
+        path: '/user',
+        element: <User />
       },
       {
-        path: '/',
-        element: <App />
+        path: '/stats',
+        element: <Stats />
       },
       {
-        path: '/',
-        element: <App />
+        path: '/subscription',
+        element: <Subscription />
+      },
+      {
+        path: '/login',
+        element: <SignIn />
       }
     ]
+  },
+  {
+    path: '*',
+    element: <NotFound />
   }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <RouterProvider router={router} />
 );

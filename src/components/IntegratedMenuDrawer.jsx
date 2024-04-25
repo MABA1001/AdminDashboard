@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -18,12 +17,14 @@ import Divider from '@mui/material/Divider';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import { useNavigate } from 'react-router-dom';
+import Box from '@mui/material/Box';
 
 export default function IntegratedMenuDrawer() {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
-
+  const navigate = useNavigate();
   const handleChange = event => {
     setAuth(event.target.checked);
   };
@@ -34,6 +35,7 @@ export default function IntegratedMenuDrawer() {
 
   const handleClose = () => {
     setAnchorEl(null);
+    navigate('./login');
   };
 
   const handleDrawerOpen = () => {
@@ -46,7 +48,13 @@ export default function IntegratedMenuDrawer() {
 
   const handleDrawerItemClick = text => {
     setDrawerOpen(false);
-    // Handle redirection based on drawer item clicke
+    if (text == 'Manage Users') {
+      navigate('/user');
+    } else if (text == 'Manage Subscriptions') {
+      navigate('/subscription');
+    } else if (text == 'Manage Stats') {
+      navigate('/stats');
+    }
   };
 
   return (
